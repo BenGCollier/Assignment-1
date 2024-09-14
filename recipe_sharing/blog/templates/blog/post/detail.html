@@ -36,6 +36,13 @@
         {{ comment.created }}
       </p>
       {{ comment.body|linebreaks }}
+
+      <p>Rating:
+        {% for i in "12345" %}
+          <span class="{% if i <= comment.rating|stringformat:"d" %}gold-star{% else %}gray-star{% endif %}">★</span>
+        {% endfor %}
+      </p>
+      
     </div>
   {% empty %}
     <p>There are no comments yet.</p>

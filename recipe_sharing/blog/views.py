@@ -149,6 +149,7 @@ def post_comment(request, post_id):
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
+        comment.rating = form.cleaned_data['rating'] 
         comment.save()
     return render(
         request,
