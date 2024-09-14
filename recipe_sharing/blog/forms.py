@@ -16,7 +16,10 @@ class EmailPostForm(forms.Form):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['name', 'email', 'body']
+        fields = ('name', 'email', 'body', 'rating')
+        widgets = {
+            'rating': forms.RadioSelect
+        }
 
 
 class SearchForm(forms.Form):

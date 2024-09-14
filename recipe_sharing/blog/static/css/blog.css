@@ -95,3 +95,26 @@ input[type=submit] {
     font-size:12px;
     color:#666;
 }
+.rating-stars {
+    display: flex;
+    gap: 5px; /* Space between each star */
+}
+
+.rating-stars input {
+    display: none; /* Hide the radio buttons */
+}
+
+.rating-stars label {
+    font-size: 2rem; /* Adjust size of stars */
+    cursor: pointer;
+}
+
+.rating-stars input:checked ~ label {
+    color: gold; /* Style the checked star */
+}
+
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: gold; /* Style on hover */
+}
+  

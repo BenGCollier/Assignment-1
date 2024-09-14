@@ -74,6 +74,7 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+    rating = models.PositiveSmallIntegerField(default=0)  # New rating field
 
     class Meta:
         ordering = ['created']
@@ -82,4 +83,4 @@ class Comment(models.Model):
         ]
 
     def __str__(self):
-        return f'Comment by {self.name} on {self.post}'
+        return f'Comment by {self.name} on {self.post} (Rating: {self.rating} stars)'
