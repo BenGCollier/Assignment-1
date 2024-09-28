@@ -84,3 +84,81 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post} (Rating: {self.rating} stars)'
+    
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Recipe.Status.PUBLISHED)
+
+
+class Recipe(models.Model):
+    class Status(models.TextChoices):
+        DRAFT = 'DF', 'Draft'
+        PUBLISHED = 'PB', 'Published'
+
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(
+        max_length=250, unique_for_date='publish'
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='recipes'
+    )
+    body = models.TextField()
+    publish = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(
+        max_length=2,
+        choices=Status.choices,
+        default=Status.DRAFT
+    )
+    objects = models.Manager()  # Default manager
+    published = PublishedManager()  # Custom manager
+    tags = TaggableManager()
+
+    class Meta:
+        ordering = ['-publish']
+        indexes = [
+            models.Index(fields=['-publish']),
+        ]
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse(
+            'blog:recipe_detail',
+            args=[
+                self.publish.year,
+                self.publish.month,
+                self.publish.day,
+                self.slug,
+            ],
+        )
+
+
+class RecipeComment(models.Model):
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='recipe_comments'
+    )
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    rating = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            models.Index(fields=['created']),
+            models.Index(fields=['rating']),  # Optional: Add an index for the rating field
+        ]
+
+    def __str__(self):
+        return f'Comment by {self.name} on {self.recipe} (Rating: {self.rating} stars)'
