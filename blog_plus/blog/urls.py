@@ -41,7 +41,7 @@ urlpatterns = [
     ),
     path('recipes/<int:recipe_id>/share/', views.recipe_share, name='recipe_share'),
     path(
-        'recipes/<int:recipe_id>/recipe_comment/', views.recipe_comment, name='recipe_comment'
+        'recipes/<int:recipe_id>/comment/', views.recipe_comment, name='recipe_comment'
     ),
     path('recipes/feed/', LatestRecipesFeed(), name='recipe_feed'),
     path('recipes/search/', views.recipe_search, name='recipe_search'),

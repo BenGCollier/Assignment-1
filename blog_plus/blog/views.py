@@ -318,19 +318,18 @@ def recipe_share(request, recipe_id):
 def recipe_comment(request, recipe_id):
     recipe = get_object_or_404(
         Recipe,
-        id=recipe_id,
-        status=Recipe.Status.PUBLISHED
+        id=recipe_id
     )
     recipe_comment = None
     form = RecipeCommentForm(data=request.POST)
     if form.is_valid():
         recipe_comment = form.save(commit=False)
-        recipe_comment.recipe = recipe
-        recipe_comment.rating = form.cleaned_data['rating'] 
+        recipe_comment.recipe = recipe 
+        recipe_comment.rating = form.cleaned_data['rating']
         recipe_comment.save()
     return render(
         request,
-        'blog/recipe/recipe_comment.html',
+        'blog/recipe/comment.html',
         {
             'recipe': recipe,
             'form': form,

@@ -24,18 +24,18 @@
     There are no similar recipes yet.
   {% endfor %}
 
-  {% with comments.count as total_comments %}
+  {% with recipe_comments.count as total_recipe_comments %}
     <h2>
-      {{ total_comments }} comment{{ total_comments|pluralize }}
+      {{ total_recipe_comments }} comment{{ total_recipe_comments|pluralize }}
     </h2>
   {% endwith %}
-  {% for comment in comments %}
+  {% for recipe_comment in recipe_comments %}
     <div class="recipe_comment">
       <p class="info">
-        Comment {{ forloop.counter }} by {{ comment.name }}
-        {{ comment.created }}
+        Comment {{ forloop.counter }} by {{ recipe_comment.name }}
+        {{ recipe_comment.created }}
       </p>
-      {{ comment.body|linebreaks }}
+      {{ recipe_comment.body|linebreaks }}
 
       <p>Rating:
         {% for i in "12345" %}
