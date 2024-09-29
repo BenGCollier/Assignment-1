@@ -15,7 +15,7 @@
     <h2>My Blog</h2>
     <p>
       This is my blog.
-      I've made {% total_posts %} posts so far.
+      I've made {% total_posts %} posts and {% total_recipes %} recipes so far.
     </p>
     <p>
       <a href="{% url "blog:post_feed" %}">
@@ -30,6 +30,17 @@
       {% for post in most_commented_posts %}
         <li>
           <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <h3>Latest recipes</h3>
+    {% show_latest_recipes 3 %}
+    <h3>Most commented recipes</h3>
+    {% get_most_commented_recipes as most_commented_recipes %}
+    <ul>
+      {% for recipe in most_commented_recipes %}
+        <li>
+          <a href="{{ recipe.get_absolute_url }}">{{ recipe.title }}</a>
         </li>
       {% endfor %}
     </ul>
