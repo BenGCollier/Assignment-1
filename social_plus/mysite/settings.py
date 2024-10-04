@@ -62,7 +62,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,3 +144,5 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 LOGIN_REDIRECT_URL = 'blog:dashboard'
 LOGIN_URL = 'blog:login'
 LOGOUT_URL = 'blog:logout'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
