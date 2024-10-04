@@ -391,12 +391,12 @@ def user_login(request):
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'blog/login.html', {'form': form})
+    return render(request, 'blog/account/login.html', {'form': form})
 
 @login_required
 def dashboard(request):
- return render(
- request,
- 'blog/dashboard.html',
- {'section': 'dashboard'}
- )
+    return render(
+        request,
+        'blog/account/dashboard.html',
+        {'section': 'dashboard'}
+    )
