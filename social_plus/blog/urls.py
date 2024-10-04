@@ -1,9 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap, RecipeSitemap
 from . import views
 from django.contrib.auth import views as auth_views
 from .feeds import LatestPostsFeed, LatestRecipesFeed
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'blog'
 
@@ -89,4 +91,14 @@ urlpatterns = [
             template_name='blog/registration/password_reset_complete.html'),
         name='password_reset_complete'
     ),
+
+    path('', include('django.contrib.auth.urls')),
+
+    path('register/', views.register, name='register'),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(
+            settings.MEDIA_URL,
+            document_root=settings.MEDIA_ROOT
+    )
