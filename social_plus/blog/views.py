@@ -5,6 +5,7 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from taggit.models import Tag
 from django.http import HttpResponse
@@ -15,7 +16,12 @@ from django.contrib.postgres.search import (
  SearchRank
 )
 
-from .forms import RecipeCommentForm, CommentForm, EmailPostForm, EmailRecipeForm, SearchForm, LoginForm, UserRegistrationForm, ProfileEditForm, UserEditForm
+from .forms import (
+    RecipeCommentForm, CommentForm, 
+    EmailPostForm, EmailRecipeForm, 
+    SearchForm, LoginForm, 
+    UserRegistrationForm, ProfileEditForm, 
+    UserEditForm)
 from .models import Post, Recipe, Profile
 
 
@@ -441,6 +447,12 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            messages.success(
+                request,
+                'Profile updated successfully'
+            )
+        else:
+            messages.error(request, 'Error updating your profile')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
