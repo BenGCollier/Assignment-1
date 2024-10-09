@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'social_django',
     'django_extensions',
     'images.apps.ImagesConfig',
+    'account.apps.AccountConfig',
+    'bookmarks.apps.BookmarksConfig',
 ]
 
 MIDDLEWARE = [
@@ -144,9 +146,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-LOGIN_REDIRECT_URL = 'blog:dashboard'
-LOGIN_URL = 'blog:login'
-LOGOUT_URL = 'blog:logout'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
