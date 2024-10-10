@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     'account.apps.AccountConfig',
     'easy_thumbnails',
+    'actions.apps.ActionsConfig',
 ]
 
 MIDDLEWARE = [
@@ -161,7 +162,15 @@ AUTHENTICATION_BACKENDS = [
  'social_core.backends.google.GoogleOAuth2',
 ]
 
-if DEBUG:
-    import mimetypes
-    mimetypes.add_type('application/javascript', '.js', True)
-    mimetypes.add_type('text/css', '.css', True)
+SOCIAL_AUTH_PIPELINE = [
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'account.authentication.create_profile',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+]
