@@ -61,6 +61,7 @@ def register(request):
             new_user.save()
             # Create the user profile
             Profile.objects.create(user=new_user)
+            create_action(new_user, 'has created an account')
             return render(
                 request,
                 'account/register_done.html',
@@ -113,6 +114,7 @@ def user_list(request):
         {'section': 'people', 'users': users},
     )
 
+User = get_user_model()
 
 @login_required
 def user_detail(request, username):
