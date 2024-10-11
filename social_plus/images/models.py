@@ -40,3 +40,40 @@ class Image(models.Model):
 
     def get_absolute_url(self):
         return reverse('images:detail', args=[self.id, self.slug])
+
+class RecipeImage(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='recipe_images_created',
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, blank=True)
+    url = models.URLField(max_length=2000)
+    recipe_image = models.ImageField(upload_to='recipe_images/%Y/%m/%d/')
+    description = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    users_like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='recipe_images_liked',
+        blank=True,
+    )
+    total_likes = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['-created']),
+            models.Index(fields=['-total_likes']),
+        ]
+        ordering = ['-created']
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('recipe_images:detail', args=[self.id, self.slug])

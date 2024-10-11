@@ -5,10 +5,10 @@
 {% block content %}
   <h1>Images ranking</h1>
   <ol>
-    {% for image in most_viewed %}
+    {% for recipe_image in most_viewed %}
       <li>
-        <a href="{{ image.get_absolute_url }}">
-          {{ image.title }}
+        <a href="{{ recipe_image.get_absolute_url }}">
+          {{ recipe_image.title }}
         </a>
       </li>
     {% endfor %}
