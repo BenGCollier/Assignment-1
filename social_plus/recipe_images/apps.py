@@ -7,4 +7,4 @@ class RecipeImagesConfig(AppConfig):
 
     def ready(self):
         # import signal handlers
-        import images.signals
+        import recipe_images.signals

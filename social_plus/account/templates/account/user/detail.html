@@ -26,47 +26,56 @@
   {% endwith %}
 {% endblock %}
 
-
-
 {% block domready %}
 <script>
-  const url = '{% url "user_follow" %}';
-  var options = {
-    method: 'POST',
-    headers: {'X-CSRFToken': csrftoken},
-    mode: 'same-origin'
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    const url = '{% url "user_follow" %}';
+    const csrftoken = '{{ csrf_token }}'; // Ensure you have access to the CSRF token
 
-  document.querySelector('a.follow')
-          .addEventListener('click', function(e){
-    e.preventDefault();
-    var followButton = this;
+    var options = {
+      method: 'POST',
+      headers: {'X-CSRFToken': csrftoken},
+      mode: 'same-origin'
+    };
 
-    // add request body
-    var formData = new FormData();
-    formData.append('id', followButton.dataset.id);
-    formData.append('action', followButton.dataset.action);
-    options['body'] = formData;
+    document.querySelector('a.follow')
+            .addEventListener('click', function(e) {
+      e.preventDefault();
+      var followButton = this;
 
-    // send HTTP request
-    fetch(url, options)
-    .then(response => response.json())
-    .then(data => {
-      if (data['status'] === 'ok')
-      {
-        var previousAction = followButton.dataset.action;
+      // Add request body
+      var formData = new FormData();
+      formData.append('id', followButton.dataset.id);
+      formData.append('action', followButton.dataset.action);
+      options['body'] = formData;
 
-        // toggle button text and data-action
-        var action = previousAction === 'follow' ? 'unfollow' : 'follow';
-        followButton.dataset.action = action;
-        followButton.innerHTML = action;
+      // Send HTTP request
+      fetch(url, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data['status'] === 'ok') {
+          var previousAction = followButton.dataset.action;
 
-        // update follower count
-        var followerCount = document.querySelector('span.count .total');
-        var totalFollowers = parseInt(followerCount.innerHTML);
-        followerCount.innerHTML = previousAction === 'follow' ? totalFollowers + 1 : totalFollowers - 1;
-      }
-    })
+          // Toggle button text and data-action
+          var action = previousAction === 'follow' ? 'unfollow' : 'follow';
+          followButton.dataset.action = action;
+          followButton.innerHTML = action.charAt(0).toUpperCase() + action.slice(1); // Capitalize the first letter
+
+          // Update follower count
+          var followerCount = document.querySelector('span.count .total');
+          var totalFollowers = parseInt(followerCount.innerHTML);
+          followerCount.innerHTML = previousAction === 'follow' ? totalFollowers + 1 : totalFollowers - 1;
+        }
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+    });
   });
 </script>
 {% endblock %}

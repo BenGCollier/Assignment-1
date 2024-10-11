@@ -39,19 +39,19 @@ def recipe_image_create(request):
     return render(
         request,
         'recipe_images/recipe_image/create.html',
-        {'section': 'images', 'form': form},
+        {'section': 'recipe_images', 'form': form},
     )
 
 
 def recipe_image_detail(request, id, slug):
     recipe_image = get_object_or_404(RecipeImage, id=id, slug=slug)
-    total_views = r.incr(f'image:{recipe_image.id}:views')
+    total_views = r.incr(f'recipe_image:{recipe_image.id}:views')
     r.zincrby('recipe_image_ranking', 1, recipe_image.id)
     return render(
         request,
         'recipe_images/recipe_image/detail.html',
         {
-            'section': 'images', 
+            'section': 'recipe_images', 
             'recipe_image': recipe_image,
             'total_views': total_views
         },
@@ -99,12 +99,12 @@ def recipe_image_list(request):
         return render(
             request,
             'recipe_images/recipe_image/list_images.html',
-            {'section': 'images', 'recipe_images': recipe_images},
+            {'section': 'recipe_images', 'recipe_images': recipe_images},
         )
     return render(
         request,
         'recipe_images/recipe_image/list.html',
-        {'section': 'images', 'recipe_images': recipe_images},
+        {'section': 'recipe_images', 'recipe_images': recipe_images},
     )
 
 @login_required
