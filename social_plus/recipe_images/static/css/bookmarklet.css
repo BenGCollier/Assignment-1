@@ -47,8 +47,8 @@
     cursor: pointer;
 }
 
-#bookmarklet .images img.selected,
-#bookmarklet .images img:hover {
+#bookmarklet .recipe-images img.selected,
+#bookmarklet .recipe-images img:hover {
     border:1px solid #12c064;
     opacity:1;
 }

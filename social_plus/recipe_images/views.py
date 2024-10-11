@@ -49,7 +49,7 @@ def recipe_image_detail(request, id, slug):
     r.zincrby('recipe_image_ranking', 1, recipe_image.id)
     return render(
         request,
-        'images/recipe_image/detail.html',
+        'recipe_images/recipe_image/detail.html',
         {
             'section': 'images', 
             'recipe_image': recipe_image,
@@ -124,6 +124,6 @@ def recipe_image_ranking(request):
     most_viewed.sort(key=lambda x: recipe_image_ranking_ids.index(x.id))
     return render(
         request,
-        'images/recipe_image/ranking.html',
-        {'section': 'images', 'most_viewed': most_viewed},
+        'recipe_images/recipe_image/ranking.html',
+        {'section': 'recipe_images', 'most_viewed': most_viewed},
     )

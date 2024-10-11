@@ -5,13 +5,13 @@ from . import views
 app_name = 'recipe_images'
 
 urlpatterns = [
-    path('create/', views.image_create, name='create'),
+    path('create/', views.recipe_image_create, name='create'),
     path(
         'detail/<int:id>/<slug:slug>/',
-        views.image_detail,
+        views.recipe_image_detail,
         name='detail',
     ),
-    path('like/', views.image_like, name='like'),
-    path('', views.image_list, name='list'),
-    path('ranking/', views.image_ranking, name='ranking'),
+    path('like/', views.recipe_image_like, name='like'),
+    path('', views.recipe_image_list, name='list'),
+    path('ranking/', views.recipe_image_ranking, name='ranking'),
 ]

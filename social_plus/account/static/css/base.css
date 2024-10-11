@@ -273,6 +273,7 @@ img.user-detail {
     margin-right:20px;
 }
 .image-container { margin-top:40px; }
+.recipe-image-container { margin-top:40px; }
 
 /* actions */
 .action {
@@ -286,4 +287,47 @@ img.user-detail {
 .action .date {
     font-style:italic;
     color:#ccc;
+}
+
+.image-preview, .image-detail {
+    max-width:300px;
+    float:left;
+    margin:0 20px 20px 0;
+}
+.image-detail { margin-top:20px; }
+.image-info div {
+    padding:20px 0;
+    overflow:auto;
+}
+.count {
+    color:#aaa;
+    border:3px solid #bbb;
+    border-radius:26px;
+    padding:10px 20px;
+    margin:20px 10px 0;
+}
+a.like, a.follow { float:right; margin-top:-8px; }
+
+#recipe-image-list { overflow:hidden; }
+#recipe-image-list .image {
+    float:left;
+    width:220px;
+    height:300px;
+    margin:0 10px 10px 10px;
+    border-top:8px solid #12c064;
+    background:#eee;
+}
+#recipe-image-list img { width:220px; height:220px; }
+#recipe-image-list .info { padding:10px; }
+#recipe-image-list .info a { color:#333; }
+.recipe-image-likes div {
+    float:left;
+    width:auto;
+    padding:10px;
+    text-align:center;
+}
+.recipe-image-likes img {
+    width:120px;
+    height:120px;
+    border-radius:50%;
 }

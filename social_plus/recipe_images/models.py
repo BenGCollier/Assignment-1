@@ -39,4 +39,4 @@ class RecipeImage(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('recipe_images:recipe_detail', args=[self.id, self.slug])
+        return reverse('recipe_images:detail', args=[self.id, self.slug])
