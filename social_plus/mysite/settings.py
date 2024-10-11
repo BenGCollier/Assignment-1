@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'actions.apps.ActionsConfig',
     'debug_toolbar',
+    'recipe_images.apps.RecipeImagesConfig',
 ]
 
 MIDDLEWARE = [
