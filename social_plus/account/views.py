@@ -17,6 +17,9 @@ from .forms import (
 from .models import Contact, Profile
 
 
+User = get_user_model()
+
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -42,10 +45,21 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
+    # Display all actions by default
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list(
+        'id', flat=True
+    )
+    if following_ids:
+        # If user is following others, retrieve only their actions
+        actions = actions.filter(user_id__in=following_ids)
+    actions = actions.select_related(
+        'user', 'user__profile'
+    ).prefetch_related('target')[:10]
     return render(
         request,
         'account/dashboard.html',
-        {'section': 'dashboard'}
+        {'section': 'dashboard', 'actions': actions},
     )
 
 
@@ -56,7 +70,9 @@ def register(request):
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
             # Set the chosen password
-            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.set_password(
+                user_form.cleaned_data['password']
+            )
             # Save the User object
             new_user.save()
             # Create the user profile
@@ -105,6 +121,7 @@ def edit(request):
         {'user_form': user_form, 'profile_form': profile_form},
     )
 
+
 @login_required
 def user_list(request):
     users = User.objects.filter(is_active=True)
@@ -114,7 +131,6 @@ def user_list(request):
         {'section': 'people', 'users': users},
     )
 
-User = get_user_model()
 
 @login_required
 def user_detail(request, username):

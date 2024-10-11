@@ -106,7 +106,7 @@ class Recipe(models.Model):
         related_name='recipes'
     )
     body = models.TextField()
-    ingredients = models.TextField(null=True, blank=True)
+    # ingredients = models.TextField(null=True, blank=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
