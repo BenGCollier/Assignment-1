@@ -209,12 +209,12 @@ def recipe_image_list(request):
     if recipe_images_only:
         return render(
             request,
-            'recipe_images/recipe_image/list_images.html',
+            'images/recipe_image/list_images.html',
             {'section': 'images', 'recipe_images': recipe_images},
         )
     return render(
         request,
-        'recipe_images/recipe_image/list.html',
+        'images/recipe_image/list.html',
         {'section': 'images', 'recipe_images': recipe_images},
     )
 
@@ -229,12 +229,12 @@ def recipe_image_ranking(request):
     # get most viewed recipe_images
     most_viewed = list(
         RecipeImage.objects.filter(
-            id__in=image_ranking_ids
+            id__in=recipe_image_ranking_ids
         )
     )
     most_viewed.sort(key=lambda x: recipe_image_ranking_ids.index(x.id))
     return render(
         request,
-        'recipe_images/recipe_image/ranking.html',
+        'images/recipe_image/ranking.html',
         {'section': 'images', 'most_viewed': most_viewed},
     )

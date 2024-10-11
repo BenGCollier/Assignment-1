@@ -10,5 +10,5 @@ class ImageAdmin(admin.ModelAdmin):
 
 @admin.register(RecipeImage)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'image', 'created']
+    list_display = ['title', 'slug', 'recipe_image', 'created']
     list_filter = ['created']
