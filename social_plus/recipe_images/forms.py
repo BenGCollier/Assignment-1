@@ -9,7 +9,7 @@ from .models import RecipeImage
 class RecipeImageCreateForm(forms.ModelForm):
     class Meta:
         model = RecipeImage
-        fields = ['title', 'url', 'description']
+        fields = ['title', 'url', 'ingredients', 'instructions', 'link']
         widgets = {
             'url': forms.HiddenInput,
         }

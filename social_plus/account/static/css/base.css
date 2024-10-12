@@ -287,3 +287,37 @@ img.user-detail {
     font-style:italic;
     color:#ccc;
 }
+
+/* Container to hold the image and content side by side */
+.recipe-detail-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px; /* Space between image and content */
+    margin-bottom: 30px;
+}
+
+/* Image styling */
+.image-section {
+    flex: 0 0 auto; /* Image takes up only as much width as needed */
+}
+
+.image-section img {
+    max-width: 300px;
+    height: auto;
+}
+
+/* Content section styling */
+.content-section {
+    flex: 1; /* Content section takes up the remaining space */
+}
+
+/* Ensure the content wraps properly on smaller screens */
+@media screen and (max-width: 768px) {
+    .recipe-detail-wrapper {
+        flex-direction: column;
+    }
+
+    .image-section {
+        margin-bottom: 20px;
+    }
+}
