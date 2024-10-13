@@ -6,7 +6,6 @@
   <h1>{{ recipe_image.title }}</h1>
   {% load thumbnail %}
   
-  <div class="recipe-detail-wrapper">
     <div class="image-section">
       <a href="{{ recipe_image.recipe_image.url }}">
         <img src="{% thumbnail recipe_image.recipe_image 300x0 %}" class="image-detail" alt="{{ recipe_image.title }}">
@@ -59,7 +58,6 @@
         </div>
       {% endwith %}
     </div>
-  </div>
 {% endblock %}
 
 
